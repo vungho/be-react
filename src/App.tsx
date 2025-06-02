@@ -22,6 +22,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
+import { TodoPage } from './pages/todo/todo.page';
 
 const products = [
   {
@@ -236,7 +237,7 @@ function App() {
       {/** Main content */}
       <div className='flex flex-col md:flex-row gap-4'>
         <main className='bg-white p-4 rounded-md shadow-md w-full'>
-          <h2 className='text-lg font-semibold mb-2'>Main Content</h2>
+          <TodoPage></TodoPage>
         </main>
       </div>
     </div>

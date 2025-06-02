@@ -1,3 +1,3 @@
-export function Todo() {
-  return <>My name is Todo</>;
+export function Todo({ children }) {
+  return <>{children}</>;
 }
