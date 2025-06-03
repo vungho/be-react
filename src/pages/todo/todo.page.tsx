@@ -1,23 +1,16 @@
 import { useState } from 'react';
 import { TodoItem } from '../../components/todo-item/todo-item';
 import { Todo } from '../../components/todo/todo';
-
-type Task = {
-  taskId: string;
-  title: string;
-  completed: boolean;
-};
+import type { Task } from '../../types/todo/task.type';
 
 export function TodoPage() {
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState<Task[]>([
     { taskId: 't001', title: 'Task 1', completed: true },
     { taskId: 't002', title: 'Task 2', completed: false },
   ]);
 
-  const toggleTask = ({ taskId }) => {
+  const toggleTask = ({ taskId }: Partial<Task>) => {
     const index = tasks.findIndex((t) => t.taskId === taskId);
-    console.log('Toggle the task', taskId);
-    console.log(index);
     if (index >= 0) {
       tasks[index].completed = !tasks[index].completed;
       setTasks([...tasks]);
@@ -34,7 +27,7 @@ export function TodoPage() {
             key={taskId}
             title={title}
             completed={completed}
-            onToggle={toggleTask}
+            onToggle={(task) => toggleTask(task)}
           ></TodoItem>
         ))}
       </Todo>
