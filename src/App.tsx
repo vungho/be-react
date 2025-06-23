@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import {
   Dialog,
   DialogPanel,
@@ -22,7 +22,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
-import { TodoPage } from './pages/todo/todo.page';
+import { ErrorBoundary } from './providers/ErrorBoundary';
+
+const TodoFeature = lazy(() => import('./features/todo').then((m) => ({ default: m.TodoList })));
 
 const products = [
   {
@@ -56,6 +58,7 @@ const products = [
     icon: ArrowPathIcon,
   },
 ];
+
 const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
@@ -237,7 +240,13 @@ function App() {
       {/** Main content */}
       <div className='flex flex-col md:flex-row gap-4'>
         <main className='bg-white p-4 rounded-md shadow-md w-full'>
-          <TodoPage></TodoPage>
+          <h1 className='text-2xl mb-4'>Todos (React 18 + TS)</h1>
+
+          <ErrorBoundary>
+            <Suspense fallback={<p>Loading feature…</p>}>
+              <TodoFeature />
+            </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
     </div>
